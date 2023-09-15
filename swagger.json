@@ -1,0 +1,158 @@
+{
+    "definitions": {
+        "Todo": {
+            "description": "A Todo list item",
+            "example": {
+                "created": "2015-12-31T00:00:00Z",
+                "summary": "get milk"
+            },
+            "properties": {
+                "created": {
+                    "$ref": "#/definitions/UTCTime"
+                },
+                "summary": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "created",
+                "summary"
+            ],
+            "type": "object"
+        },
+        "TodoId": {
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
+            "type": "integer"
+        },
+        "UTCTime": {
+            "example": "2016-07-22T00:00:00Z",
+            "format": "yyyy-mm-ddThh:MM:ssZ",
+            "type": "string"
+        }
+    },
+    "info": {
+        "description": "This is an API that tests swagger integration",
+        "license": {
+            "name": "MIT",
+            "url": "http://mit.com"
+        },
+        "title": "Todo API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/todo": {
+            "get": {
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/Todo"
+                            },
+                            "type": "array"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Todo"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/TodoId"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid `body`"
+                    }
+                }
+            }
+        },
+        "/todo/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "in": "path",
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "name": "id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/Todo"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid `id`"
+                    }
+                }
+            },
+            "put": {
+                "consumes": [
+                    "application/json;charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "name": "id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Todo"
+                        }
+                    }
+                ],
+                "produces": [
+                    "application/json;charset=utf-8"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/TodoId"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid `body` or `id`"
+                    }
+                }
+            }
+        }
+    },
+    "swagger": "2.0"
+}
